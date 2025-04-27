@@ -5,6 +5,7 @@ import pygame
 # and the database_version variable
 # from database.py into the current file
 from constants import *
+from player import *
 
 #Use pygame's display.set_mode() to get a new GUI window:
 
@@ -17,7 +18,11 @@ def main():
 	print(f"Screen height: {SCREEN_HEIGHT}")
 
 	clock = pygame.time.Clock()
+	player = (SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2)
 	dt = 0
+
+
+
 
 	while True:
 		for event in pygame.event.get():
@@ -25,6 +30,7 @@ def main():
 				pygame.quit()
 				return
 		pygame.Surface.fill(screen, (0,0,0))
+		player.draw(screen)
 		pygame.display.flip()
 		dt = clock.tick(60) / 1000
 

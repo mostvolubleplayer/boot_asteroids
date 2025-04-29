@@ -5,31 +5,29 @@ import pygame
 # and the database_version variable
 # from database.py into the current file
 from constants import *
-from player import *
+from player import Player
 
 #Use pygame's display.set_mode() to get a new GUI window:
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+print("Starting Asteroids!")
+print(f"Screen width: {SCREEN_WIDTH}")
+print(f"Screen height: {SCREEN_HEIGHT}")
 
 def main():
 	pygame.init()
-	print("Starting Asteroids!")
-	print(f"Screen width: {SCREEN_WIDTH}")
-	print(f"Screen height: {SCREEN_HEIGHT}")
-
+	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	clock = pygame.time.Clock()
-	player = (SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2)
+	player = Player(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2)
 	dt = 0
-
-
-
 
 	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-				pygame.quit()
 				return
 		pygame.Surface.fill(screen, (0,0,0))
+		player.update(dt)
+
+		screen.fill("black")
 		player.draw(screen)
 		pygame.display.flip()
 		dt = clock.tick(60) / 1000
@@ -37,8 +35,3 @@ def main():
 
 if __name__ == "__main__":
 		main()
-
-
-
-
-

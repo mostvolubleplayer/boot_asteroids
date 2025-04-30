@@ -6,6 +6,8 @@ import pygame
 # from database.py into the current file
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 #Use pygame's display.set_mode() to get a new GUI window:
 
@@ -19,8 +21,12 @@ def main():
 	clock = pygame.time.Clock()
 	updatables = pygame.sprite.Group()
 	drawables = pygame.sprite.Group()
+	asteroids = pygame.sprite.Group()
 	Player.containers = (updatables, drawables)
-	player = Player(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2)
+	Asteroid.containers = (asteroids, updatables, drawables)
+	AsteroidField.containers = (updatables,)
+	asteroid_field = AsteroidField()
+	player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 	dt = 0
 
 
@@ -30,7 +36,7 @@ def main():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				return
-		pygame.Surface.fill(screen, (0,0,0))
+		#pygame.Surface.fill(screen, (0,0,0)) REDUNDANT screen.fill
 		screen.fill("black")
 		updatables.update(dt)
 		for d in drawables:

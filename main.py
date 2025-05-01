@@ -1,5 +1,6 @@
 # This line lets us use code from the open-source pygame lib throughout the file:
 import pygame
+import sys
 
 # import the connect_database function
 # and the database_version variable
@@ -8,6 +9,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from circleshape import CircleShape
 
 #Use pygame's display.set_mode() to get a new GUI window:
 
@@ -36,9 +38,13 @@ def main():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				return
-		#pygame.Surface.fill(screen, (0,0,0)) REDUNDANT screen.fill
+		#pygame.Surface.fill(screen, (0,0,0)) REDUNDANT thanks to screen.fill
 		screen.fill("black")
 		updatables.update(dt)
+		for asteroid in asteroids:
+			if player.collision_check(asteroid):
+				print("Game over!")
+				sys.exit("Game Over!")
 		for d in drawables:
 			d.draw(screen)
 		pygame.display.flip()

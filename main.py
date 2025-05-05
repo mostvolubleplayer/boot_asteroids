@@ -10,7 +10,6 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
-from circleshape import CircleShape
 from shot import Shot
 
 #Use pygame's display.set_mode() to get a new GUI window:
@@ -53,6 +52,14 @@ def main():
 			if player.collision_check(asteroid):
 				print("Game over!")
 				sys.exit("Game Over!")
+
+			for shot in shots:
+				if shot.collision_check(asteroid):
+					shot.kill()
+					asteroid.split()
+					break
+
+
 
 		#pygame.Surface.fill(screen, (0,0,0)) REDUNDANT thanks to screen.fill
 		screen.fill("black")
